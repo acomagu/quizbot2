@@ -5,7 +5,9 @@ import ()
 func quiz(chatroom chan Message) {
 	<-chatroom
 	qa := oneQA()
-	sendTexts(chatroom, qa.question)
+	for _, message := range qa.question {
+		channel <- message
+	}
 
 	text := <-chatroom
 	if isCorrectAnswer(text, qa) {
@@ -18,11 +20,4 @@ func quiz(chatroom chan Message) {
 
 func isCorrectAnswer(text Message, qa QA) bool {
 	return text == Message(qa.answer)
-}
-
-func sendTexts(chatroom chan Message, texts []Message) error {
-	for _, text := range texts {
-		chatroom <- text
-	}
-	return nil
 }
