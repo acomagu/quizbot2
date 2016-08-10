@@ -13,6 +13,7 @@ func reply(text Message, userID UserID) error {
 		chatroom = make(chan Message)
 		go sendMessageFromChatroom(chatroom, userID)
 		go talk(chatroom)
+		chatrooms[userID] = chatroom
 	}
 	chatroom <- text
 	return nil
