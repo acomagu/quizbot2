@@ -6,7 +6,7 @@ func quiz(chatroom chan Message) {
 	<-chatroom
 	qa := oneQA()
 	for _, message := range qa.question {
-		channel <- message
+		chatroom <- message
 	}
 
 	text := <-chatroom
