@@ -9,12 +9,10 @@ func quiz(chatroom chan Message) {
 
 	text := <-chatroom
 	if isCorrectAnswer(text, qa) {
-		sendTexts(chatroom, []Message{"なんで知ってるの...?"})
+		chatroom <- "なんで知ってるの...?"
 	} else {
-		sendTexts(chatroom, []Message{
-			"やーいやーーいwwwwwwwwwwwwwwwwwww",
-			Message("せぃかぃゎ" + qa.answer),
-		})
+		chatroom <- "やーいやーーいwwwwwwwwwwwwwwwwwww"
+		chatroom <- Message("せぃかぃゎ" + qa.answer)
 	}
 }
 
